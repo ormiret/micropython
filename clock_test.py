@@ -17,4 +17,4 @@ while True:
                 chain[i] = vals[i]
             chain.write()
             time.sleep(1)
-got 
+
