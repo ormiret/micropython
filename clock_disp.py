@@ -53,7 +53,11 @@ def set_time():
 
 def run():
     sep = True
+    cnt = 0
     while True:
+        cnt += 1
+        if cnt > 3000:
+            set_time()
         _,_,_,_,h,m,s,ms = machine.RTC().datetime()
         if (h > 12):
             h = h - 12
