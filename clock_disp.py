@@ -56,7 +56,7 @@ def run():
     cnt = 0
     while True:
         cnt += 1
-        if cnt > 3000:
+        if cnt > 3600:
             set_time()
             cnt = 0
         _,_,_,_,h,m,s,ms = machine.RTC().datetime()
