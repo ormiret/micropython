@@ -5,13 +5,14 @@ import urequests
 import ujson
 import time
 
-sensor_url = "http://api.luftdaten.info/static/v1/sensor/5331/"
+sensor_url = "http://api.luftdaten.info/static/v1/sensor/15092/"
 
 NUM_PIXELS = 16
 np_pin = Pin(0, Pin.OUT)
-np = NeoPixel(np_pin, NUM_PIXELS)
+np = NeoPixel(np_pin, 64)
 
 off = (0,0,0)
+bright=1.0
 
 def pick_col(lvl):
     colours = {'red': (255, 0, 0),
@@ -30,8 +31,11 @@ def build_pix(col, lvl, mxm=100):
     return [col if lvl > i*(mxm/(NUM_PIXELS/2.0)) else off for i in range(8)]
 
 def disp(pix, pm2, pm10):
-    vals = build_pix(pick_col(pm2), pm2) + build_pix(pick_col(pm10), pm10)
-    for i in range(NUM_PIXELS):
+    pm2_px = build_pix([int(c*bright) for c in pick_col(pm2)], pm2)
+    pm10_px = build_pix([int(c*bright) for c in pick_col(pm10)], pm10)
+    # pm10_px.reverse() # include if second row is wired backwards
+    vals = 4*pm2_px + 4*pm10_px
+    for i in range(64):
         pix[i] = vals[i]
     pix.write()
     print("Pixel values: ", vals)
@@ -54,6 +58,10 @@ def update():
             print("PM10 value:", pm10)
     disp(np, pm2, pm10)
 
-while True:
-    update()
-    time.sleep(60)
+
+def run():
+    while True:
+        update()
+        time.sleep(60)
+
+run()
