@@ -12,16 +12,16 @@ import gc
 gc.collect()
 
 from secrets import networks, unlock_url
-colours = {'red': (255, 0, 0),
-           'green': (0, 255, 0),
+colours = {'red': (0, 255, 0),
+           'green': (255, 0, 0),
            'blue': (0, 0, 255),
-           'orange': (255, 165, 0),
+           'orange': (165, 255, 0),
            'off': (0,0,0) }
 
 led_pin = machine.Pin(0, machine.Pin.OUT) # D3
-np = NeoPixel(pin, 1)
+np = NeoPixel(led_pin, 1)
 
-button = machine.Pin(15, machine.Pin.IN, machine.Pin.PULL_UP)
+button = machine.Pin(13, machine.Pin.IN, machine.Pin.PULL_UP)
 
 # light LED red
 np[0] = colours['orange']
@@ -75,10 +75,10 @@ if wlan.active():
             if ul['unlocked']:
                 print("Unlocked")
                 np[0] = colours['green']
-                np[0].write()
-                tiem.sleep(30)
+                np.write()
+                time.sleep(10)
                 np[0] = colours['blue']
-                np[0].write()
+                np.write()
             else:
                 print("Error:", ul['message'])
                 blink(np, colours['red'], rep=5)
