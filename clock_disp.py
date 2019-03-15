@@ -64,6 +64,7 @@ def run():
             h = h - 12
         c = clock.generateClock(h, m, sep)
         print('{:02}{}{:02} = '.format(h, ':' if sep else ' ',m), c)
+        print("Free: ", gc.mem_free(), " Allocated: ", gc.mem_alloc())
         for i in range(num_conts):
             chain[i] = c[i]
         chain.write()
