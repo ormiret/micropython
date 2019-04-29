@@ -4,7 +4,7 @@ import urandom
 import time
 
 NUM_PIXELS = 64
-STEPS = 100
+STEPS = 50
 
 pin = Pin(2, Pin.OUT) #D4 on nodeMCU
 np = NeoPixel(pin, NUM_PIXELS)
@@ -58,6 +58,7 @@ def fade_each():
             time.sleep(0.01)
         cur = nxt
         nxt = [randc() for x in range(NUM_PIXELS)]
+        time.sleep(0.5)
     
 
 fade_each()
