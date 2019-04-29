@@ -58,7 +58,15 @@ def fade_each():
             time.sleep(0.01)
         cur = nxt
         nxt = [randc() for x in range(NUM_PIXELS)]
-        time.sleep(0.5)
-    
+        time.sleep(1.5)
+        print("Next colour.")
 
-fade_each()
+def jmp_each():
+    while True:
+        for i in range(NUM_PIXELS):
+            np[i] = [int(v) for v in randc()]
+        np.write()
+        time.sleep(0.5)
+
+# fade_each()
+jmp_each()
