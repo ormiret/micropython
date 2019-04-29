@@ -6,7 +6,7 @@ import colorsys
 from random import randint, random
 
 NUM_PIXELS = 64
-target = ("192.168.0.100", 10089)
+target = ("172.31.5.163", 10089)
 framebuf = [[0, 0, 0] for i in xrange(NUM_PIXELS)]
 
 s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -32,7 +32,7 @@ def down(c):
         time.sleep(0.1)
 
 def randc():
-    r,g,b = colorsys.hsv_to_rgb(random(), 1, 0.8)
+    r,g,b = colorsys.hsv_to_rgb(random(), 1, 1.0)
     return [int(r*255), int(g*255), int(b*255)]
 
 def rand():
@@ -61,7 +61,7 @@ def fade_btw(one, two):
         t = [one[j]+(i*(two[j]-one[j])/STEPS) for j in xrange(3)]
         set_all(framebuf, t)
         send_frame(s, target, framebuf)
-        time.sleep(0.1)
+        time.sleep(0.3)
         
 def fadec():
     cur = randc()
@@ -80,7 +80,7 @@ def fade_each():
             for p in xrange(NUM_PIXELS):
                 frame[p] = [cur[p][j]+(i*(nxt[p][j]-cur[p][j])/STEPS) for j in xrange(3)]
             send_frame(s, target, frame)
-            time.sleep(0.1)
+            time.sleep(0.3)
         cur = nxt
         nxt = [randc() for x in xrange(NUM_PIXELS)]
 
@@ -88,9 +88,11 @@ def jmp_each():
     while True:
         frame = [randc() for x in xrange(NUM_PIXELS)]
         send_frame(s, target, frame)
-        time.sleep(0.1)
+        time.sleep(0.5)
         
     
+# jmp_each()
+# fadec()
 fade_each()
 
 while True:

@@ -7,7 +7,7 @@ import time
 NUM_PIXELS = 64
 port = 10089
 
-pin = Pin(0, Pin.OUT) #D3 on nodeMCU
+pin = Pin(2, Pin.OUT) #D3 on nodeMCU
 np = NeoPixel(pin, NUM_PIXELS)
 
 ip = wlan.ifconfig()[0]
