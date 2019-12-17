@@ -3,10 +3,13 @@ import machine
 import time
 import urandom
 
-STEPS = 50
+STEPS = 20
+PAUSE = 5
+BETWEEN = 2
+
 num_lights = 6
-pin_clk = machine.Pin(5, machine.Pin.OUT) #D1
-pin_data = machine.Pin(4, machine.Pin.OUT) #D2
+pin_clk = machine.Pin(14, machine.Pin.OUT) #D2
+pin_data = machine.Pin(27, machine.Pin.OUT) #D3
 
 chain = p9813.P9813(pin_clk, pin_data, num_lights)
 
@@ -55,10 +58,10 @@ def fade_each():
             for p in range(num_lights):
                 chain[p] = [int(cur[p][j]+(i*(nxt[p][j]-cur[p][j])/STEPS)) for j in range(3)]
             chain.write()
-            time.sleep(0.01)
+            time.sleep(PAUSE)
         cur = nxt
         nxt = [randc() for x in range(num_lights)]
-        time.sleep(1.5)
+        time.sleep(BETWEEN)
         print("Next colour.")
 
 def fade_cycle():
@@ -69,10 +72,26 @@ def fade_cycle():
             for i in range(STEPS):
                 chain[l] = [int(i/STEPS*c[j]) for j in range(3)]
                 chain.write()
-                time.sleep(0.2)
+                time.sleep(PAUSE)
             for i in range(STEPS, 0, -1):
                 chain[l] = [int(i/STEPS*c[j]) for j in range(3)]
                 chain.write()
-                time.sleep(0.2)
+                time.sleep(PAUSE)
 
-fade_each()
+
+def fade_all():
+    cur = randc()
+    nxt = randc()
+    while True:
+        for i in range(STEPS):
+            val = [int(cur[j]+(i*(nxt[j]-cur[j])/STEPS)) for j in range(3)]
+            for p in range(num_lights):
+                chain[p] = val
+            chain.write()
+            time.sleep(PAUSE)
+        cur = nxt
+        nxt = randc()
+        time.sleep(BETWEEN)
+        print("Next colour ", nxt)
+        
+fade_all()
