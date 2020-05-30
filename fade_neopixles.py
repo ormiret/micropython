@@ -3,14 +3,14 @@ from neopixel import NeoPixel
 import urandom
 import time
 
-NUM_PIXELS = 60
-NUM_PANELS = 3
-PANELS = [20, 19, 21]
+NUM_PIXELS = 64
+NUM_PANELS = 1
+PANELS = [64]
 
-STEPS = 50
-PAUSE = 0.01
+STEPS = 100
+PAUSE = 0.1
 
-pin = Pin(5, Pin.OUT) # D1 on nodemcu
+pin = Pin(2, Pin.OUT) # D4 on nodemcu
 # \o/ looks like number on the silkscreen match up to GPIO numbers on the ESP32 boards I've got
 
 np = NeoPixel(pin, NUM_PIXELS)
@@ -78,7 +78,7 @@ def fade_each():
             time.sleep(PAUSE)
         cur = nxt
         nxt = [randc() for x in range(NUM_PANELS)]
-        time.sleep(1.5)
+        time.sleep(100*PAUSE)
         print("Next colour.")
 
 def jmp_each():
