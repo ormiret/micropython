@@ -2,9 +2,8 @@
 #import esp
 #esp.osdebug(None)
 import gc
-#import webrepl
-#webrepl.start()
-gc.collect()
+import webrepl
+webrepl.start()
 
 from secrets import networks
 
@@ -31,5 +30,8 @@ for net in nets:
 else:
     print("No known networks seen. Switching off networking")
     wlan.active(False)
-            
+
+gc.collect()
+
+
 

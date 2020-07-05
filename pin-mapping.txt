@@ -13,3 +13,5 @@ Micropython | Board
 
 ~ after board pin means it can do PWM
 D0 is actually the only one that can't...
+
+On my ESP32 boards the pin number printed on the board is the same as the number used in micropython \o/
