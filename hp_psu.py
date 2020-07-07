@@ -9,18 +9,18 @@ colours = {'red': (255, 0, 0),
            'orange': (255, 165, 0),
            'off': (0,0,0) }
 
-np_pin = Pin(12, Pin.OUT) # D6 on nodemcu D1
+np_pin = Pin(12, Pin.OUT) # D6 
 np = NeoPixel(np_pin, NUM_PIXELS)
 np[0] = colours['red']
 np.write()
 
-touch = Pin(13, Pin.IN)
+touch = Pin(13, Pin.IN) # D7
 
-powered = Pin(14, Pin.IN)
+powered = Pin(14, Pin.IN) # D5
 
 load = ADC(0)
 
-relay = Pin(5, Pin.OUT)
+relay = Pin(5, Pin.OUT) #D1
 relay.value(0) 
 
 prev_read = utime.ticks_ms()
