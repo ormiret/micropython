@@ -1,6 +1,6 @@
 Micropython | Board
-0|D3~
-2|D4~ (also Led1 but inverse)*
+0|D3~ Boot fails if pulled low (need to be careful what it's connected to)
+2|D4~ (also Led1 but inverse)* Boot fails if pulled low (need to be careful what it's connected to)
 4|D2~
 5|D1~
 9|SD2 (D9?)
@@ -15,3 +15,4 @@ Micropython | Board
 D0 is actually the only one that can't...
 
 On my ESP32 boards the pin number printed on the board is the same as the number used in micropython \o/
+
